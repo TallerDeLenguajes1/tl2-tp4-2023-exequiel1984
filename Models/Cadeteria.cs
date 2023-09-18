@@ -20,7 +20,23 @@ namespace Practico1;
             this.ListadoCadetes = new List<Cadete>();
             this.ListadoPedidos = new List<Pedidos>();
         }
-       
+
+        public Cadeteria()
+        {
+            
+        }
+
+        private static Cadeteria cadeteriaSingleton;
+
+        public static Cadeteria GetCadeteria()
+        {
+            if (cadeteriaSingleton == null)
+            {
+                cadeteriaSingleton = new Cadeteria();
+            }
+            return cadeteriaSingleton;
+        }
+
         private void AgregarPedido(Pedidos NuevoPedido){
             ListadoPedidos.Add(NuevoPedido);
         }

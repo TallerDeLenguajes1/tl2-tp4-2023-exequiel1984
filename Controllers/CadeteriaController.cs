@@ -14,9 +14,10 @@ public class CadeteriaController : ControllerBase
     public CadeteriaController(ILogger<CadeteriaController> logger)
     {
         _logger = logger;
+        cadeteria = Cadeteria.GetCadeteria();
         AccesoADatos CargarDatosCSV = new AccesoCSV();
         cadeteria = CargarDatosCSV.CargarDatosCadeteria();
-        //cadeteria = new Cadeteria("Pedidos Ya", "38155666");
+        cadeteria.ListadoCadetes = CargarDatosCSV.CargarDatosCadete();
     }
 
     /*CADETES*/
@@ -32,7 +33,7 @@ public class CadeteriaController : ControllerBase
     [HttpGet]
     public ActionResult<string> GetNombreCadeteria()
     {
-        return cadeteria.Nombre;
+        return Ok(cadeteria.Nombre);
     }
 
     /* [HttpGet(Name = "GetCadetes")]
