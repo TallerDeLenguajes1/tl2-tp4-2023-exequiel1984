@@ -22,6 +22,13 @@ public class CadeteriaController : ControllerBase
         return Ok(cadeteria.Nombre);
     }
 
+    [HttpGet]
+    [Route("Cadetes")]
+    public ActionResult<IEnumerable<Cadete>> GetCadetes(){
+        var cadetes = cadeteria.GetCadetes();
+        return Ok(cadetes);
+    }
+
     [HttpPost("AddPedido")]
     public ActionResult<Pedido> AddPedido(Pedido pedido)
     {
@@ -37,10 +44,10 @@ public class CadeteriaController : ControllerBase
         return Ok(pedidos);
     }
 
-    [HttpGet]
-    [Route("Cadetes")]
-    public ActionResult<IEnumerable<Cadete>> GetCadetes(){
-        var cadetes = cadeteria.GetCadetes();
-        return Ok(cadetes);
+    [HttpPut("AsignarPedido")]
+    public ActionResult<Pedido> AsignarPedido(int idPedido, int idCadete)
+    {
+        var asigPedido = cadeteria.AsignarPedido(idPedido, idCadete);
+        return Ok(asigPedido);
     }
 }

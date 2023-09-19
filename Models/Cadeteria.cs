@@ -62,45 +62,18 @@ namespace Practico1;
             AddPedido(NuevoPedido);
         } */
 
-        /* public void AsignarCadeteAPedido(int IdCadete, int IdPedido){
-            foreach (Pedido Pedido in ListadoPedidos)
-            {
-                if (IdPedido == Pedido.Nro)
-                {
-                    Pedido.IdCadete = IdCadete;
-                    Pedido.Estado = Estados.Asignado;
-                }
-            }
-            
+        /* public Pedido AsignarPedido(Pedido pedido)
+        {
+            Pedido auxPedido = ListadoPedidos.FirstOrDefault(t => t.Nro == pedido.Nro);
+            auxPedido.IdCadete = pedido.IdCadete;
+            return auxPedido;
         } */
 
-        
-
-        /* private Pedidos? BuscarPedido(){
-            System.Console.WriteLine("Ingrese el Id del cadete:");
-            int IdCadete = Convert.ToInt32(Console.ReadLine());
-            System.Console.WriteLine("Ingrese el numero de pedido:");
-            int NroPedido = Convert.ToInt32(Console.ReadLine());
-            foreach (var Cadete in ListadoCadetes)
-            {
-                if (Cadete.Id == IdCadete)
-                {
-                    foreach (var pedido in Cadete.ListadoPedidosCadete)
-                    {
-                        if (pedido.Nro == NroPedido)
-                        {
-                            return pedido;
-                        } else
-                        {
-                            return null;
-                        }
-                    }
-                }else
-                {
-                    return null;
-                }
-            }
-        } */
+        public Pedido AsignarPedido(int idPedido, int idCadete){
+            Pedido auxPedido = ListadoPedidos.FirstOrDefault(t => t.Nro == idPedido);
+            auxPedido.IdCadete = idCadete;
+            return auxPedido;
+        }
 
         public void CambiarEstadoDePedido(int NroPedido){
             foreach (Pedido Pedido in ListadoPedidos)
@@ -109,14 +82,6 @@ namespace Practico1;
                 {
                     Pedido.Estado = Estados.Entregado;
                 }
-            }
-        }
-
-        public void ReasignarPedido(int NroPedido, int IdCadeteNuevo){
-            foreach (Pedido Pedido in ListadoPedidos)
-            {
-                if (Pedido.Nro == NroPedido)
-                    Pedido.IdCadete = IdCadeteNuevo;
             }
         }
 
