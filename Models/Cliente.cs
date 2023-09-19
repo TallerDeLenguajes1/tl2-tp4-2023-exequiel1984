@@ -20,5 +20,9 @@ namespace Practico1
             this.Telefono = Telefono;
             this.DatosReferenciaDireccion = datosReferenciaDireccion;
         }
+
+        public Cliente(){
+            
+        }
     }
 }

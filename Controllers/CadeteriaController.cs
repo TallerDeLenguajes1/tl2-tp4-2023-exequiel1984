@@ -7,7 +7,6 @@ namespace Practico1.Controllers;
 [Route("[controller]")]
 public class CadeteriaController : ControllerBase
 {
-    /*CADETERIA*/
     private Cadeteria cadeteria;
     private readonly ILogger<CadeteriaController> _logger;
 
@@ -15,20 +14,7 @@ public class CadeteriaController : ControllerBase
     {
         _logger = logger;
         cadeteria = Cadeteria.GetCadeteria();
-        AccesoADatos CargarDatosCSV = new AccesoCSV();
-        cadeteria = CargarDatosCSV.CargarDatosCadeteria();
-        cadeteria.ListadoCadetes = CargarDatosCSV.CargarDatosCadete();
     }
-
-    /*CADETES*/
-    /* private static AccesoADatos CargarDatosCSV = new AccesoCSV()
-    {
-        Cadeteria NuevaCadeteria = CargarDatosCSV.CargarDatosCadeteria();
-    } */
-
-    /* private static List<Cadete> cadetes = new List<Cadete>
-    {
-    } */
 
     [HttpGet]
     public ActionResult<string> GetNombreCadeteria()
@@ -36,9 +22,25 @@ public class CadeteriaController : ControllerBase
         return Ok(cadeteria.Nombre);
     }
 
-    /* [HttpGet(Name = "GetCadetes")]
-    public ActionResult<IEnumerable<Cadete>> GetAll()
+    [HttpPost("AddPedido")]
+    public ActionResult<Pedido> AddPedido(Pedido pedido)
     {
-        return Ok()
-    } */
+        var nuevoPedido = cadeteria.AddPedido(pedido);
+        return Ok(nuevoPedido);
+    }
+
+    [HttpGet]
+    [Route("Pedidos")]
+    public ActionResult<IEnumerable<Pedido>> GetPedidos()
+    {
+        var pedidos = cadeteria.GetPedidos();
+        return Ok(pedidos);
+    }
+
+    [HttpGet]
+    [Route("Cadetes")]
+    public ActionResult<IEnumerable<Cadete>> GetCadetes(){
+        var cadetes = cadeteria.GetCadetes();
+        return Ok(cadetes);
+    }
 }

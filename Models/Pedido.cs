@@ -9,7 +9,7 @@ namespace Practico1
         Entregado
     };
 
-    public class Pedidos
+    public class Pedido
     {
         private int nro;
         private string obs;
@@ -23,7 +23,7 @@ namespace Practico1
         public Estados Estado { get => estado; set => estado = value; }
         public int IdCadete { get => idCadete; set => idCadete = value; }
 
-        public Pedidos(int Nro, string Obs, Cliente NuevoCliente)
+        public Pedido(int Nro, string Obs, Cliente NuevoCliente)
         {
             this.Nro = Nro;
             this.Obs = Obs;
@@ -31,16 +31,13 @@ namespace Practico1
             this.Estado = Estados.Registrado;
         }
 
+        public Pedido()
+        {
+            this.cliente = new Cliente();
+        }
+
         public string VerDireccionCliente(){
             return Cliente.Direccion;
         }
-
-        /* public void VerDatosCliente(){
-            System.Console.WriteLine("*****DATOS DEL CLIENTE*****");
-            System.Console.WriteLine($"Nombre: {Cliente?.Nombre}");
-            System.Console.WriteLine($"Direccion: {Cliente?.Direccion}");
-            System.Console.WriteLine($"Telefono: {Cliente?.Telefono}");
-            System.Console.WriteLine($"Datod de referencia de la direccion: {Cliente?.DatosReferenciaDireccion}");
-        } */
     }
 }
