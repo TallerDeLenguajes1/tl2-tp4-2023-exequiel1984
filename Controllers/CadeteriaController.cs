@@ -29,13 +29,6 @@ public class CadeteriaController : ControllerBase
         return Ok(cadetes);
     }
 
-    [HttpPost("AddPedido")]
-    public ActionResult<Pedido> AddPedido(Pedido pedido)
-    {
-        var nuevoPedido = cadeteria.AddPedido(pedido);
-        return Ok(nuevoPedido);
-    }
-
     [HttpGet]
     [Route("Pedidos")]
     public ActionResult<IEnumerable<Pedido>> GetPedidos()
@@ -44,10 +37,39 @@ public class CadeteriaController : ControllerBase
         return Ok(pedidos);
     }
 
+    [HttpGet]
+    [Route("Informe")]
+    public ActionResult<Informe>GetInforme()
+    {
+        var informe = cadeteria.GetInforme();
+        return Ok(informe);
+    } 
+
+    [HttpPost("AddPedido")]
+    public ActionResult<Pedido> AddPedido(Pedido pedido)
+    {
+        var nuevoPedido = cadeteria.AddPedido(pedido);
+        return Ok(nuevoPedido);
+    }
+
     [HttpPut("AsignarPedido")]
     public ActionResult<Pedido> AsignarPedido(int idPedido, int idCadete)
     {
         var asigPedido = cadeteria.AsignarPedido(idPedido, idCadete);
         return Ok(asigPedido);
+    }
+
+    [HttpPut("CambiarEstadoPedido")]
+    public ActionResult<Pedido> CambiarEstadoPedido(int idPedido, Estados nuevoEstado)
+    {
+        var camEstadoPedido = cadeteria.CambiarEstadoPedido(idPedido, nuevoEstado);
+        return Ok(camEstadoPedido);
+    }
+
+    [HttpPut("CambiarCadetePedido")]
+    public ActionResult<Pedido> CambiarCadetePedido(int idPedido, int idNuevoCadete)
+    {
+        var camCadetePedido = cadeteria.CambiarCadetePedido(idPedido, idNuevoCadete);
+        return Ok(camCadetePedido);
     }
 }

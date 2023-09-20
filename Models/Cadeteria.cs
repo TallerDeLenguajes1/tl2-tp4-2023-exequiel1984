@@ -56,36 +56,25 @@ namespace Practico1;
             return ListadoPedidos;
         }
 
-        /* public void AltaDePedidos(int NroPedido, string ObsPedido, string NombreCliente, string DireccionCliente, string TelefonoCliente, string DatosReferenciaDireccionCliente){
-            Cliente NuevoCliente = new Cliente(NombreCliente, DireccionCliente, TelefonoCliente, DatosReferenciaDireccionCliente);   
-            Pedido NuevoPedido = new Pedido(NroPedido, ObsPedido, NuevoCliente);
-            AddPedido(NuevoPedido);
-        } */
-
-        /* public Pedido AsignarPedido(Pedido pedido)
-        {
-            Pedido auxPedido = ListadoPedidos.FirstOrDefault(t => t.Nro == pedido.Nro);
-            auxPedido.IdCadete = pedido.IdCadete;
-            return auxPedido;
-        } */
-
         public Pedido AsignarPedido(int idPedido, int idCadete){
             Pedido auxPedido = ListadoPedidos.FirstOrDefault(t => t.Nro == idPedido);
             auxPedido.IdCadete = idCadete;
             return auxPedido;
         }
 
-        public void CambiarEstadoDePedido(int NroPedido){
-            foreach (Pedido Pedido in ListadoPedidos)
-            {
-                if (Pedido.Nro == NroPedido)
-                {
-                    Pedido.Estado = Estados.Entregado;
-                }
-            }
+        public Pedido CambiarEstadoPedido(int idPedido, Estados nuevoEstado){
+            Pedido auxPedido = ListadoPedidos.FirstOrDefault(t => t.Nro == idPedido);
+            auxPedido.Estado = nuevoEstado;
+            return auxPedido;
+        }
+        
+        public Pedido CambiarCadetePedido(int idPedido, int idNuevoCadete){
+            Pedido auxPedido = ListadoPedidos.FirstOrDefault(t => t.Nro == idPedido);
+            auxPedido.IdCadete = idNuevoCadete;
+            return auxPedido;
         }
 
-        public float JornalACobrar(int IdCadete){
+        private float JornalACobrar(int IdCadete){
             float montoACobrar = 0;
             foreach (Pedido Pedido in ListadoPedidos)
             {   
@@ -96,7 +85,7 @@ namespace Practico1;
             }
             return montoACobrar;
         }
-        public Informe InformePedidosDeJornada(){
+        public Informe GetInforme(){
             var informe = new Informe();
 
             foreach (Cadete cadete in ListadoCadetes)
