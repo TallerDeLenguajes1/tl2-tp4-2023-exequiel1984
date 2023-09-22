@@ -36,9 +36,20 @@ namespace Practico1;
                 AccesoADatos CargarDatosCSV = new AccesoCSV();
                 cadeteriaSingleton = CargarDatosCSV.CargarDatosCadeteria();
                 cadeteriaSingleton.ListadoCadetes = CargarDatosCSV.CargarDatosCadete();
+                AccesoADatosPedidos NuevoAcceso = new AccesoADatosPedidos();
+                ListadoPedidos = NuevoAcceso.Obtener();
             }
             return cadeteriaSingleton;
         }
+
+        /* public void CargaDatosIniciales(int i){
+            if (i == 1)
+            {
+                AccesoADatos CargarDatosCSV = new AccesoCSV();
+                cadeteriaSingleton = CargarDatosCSV.CargarDatosCadeteria();
+                cadeteriaSingleton.ListadoCadetes = CargarDatosCSV.CargarDatosCadete();
+            }
+        } */
 
         public List<Cadete> GetCadetes()
         {

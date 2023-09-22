@@ -16,6 +16,9 @@ public class CadeteriaController : ControllerBase
         cadeteria = Cadeteria.GetCadeteria();
     }
 
+    
+
+
     [HttpGet]
     public ActionResult<string> GetNombreCadeteria()
     {
@@ -51,6 +54,13 @@ public class CadeteriaController : ControllerBase
         var nuevoPedido = cadeteria.AddPedido(pedido);
         return Ok(nuevoPedido);
     }
+
+    /* [HttpPost("InicializarDatos")]
+    public ActionResult<string> InicializarDatos(int i)
+    {
+        cadeteria.CargaDatosIniciales(i);
+        return Ok("Carga Correcta");
+    } */
 
     [HttpPut("AsignarPedido")]
     public ActionResult<Pedido> AsignarPedido(int idPedido, int idCadete)
