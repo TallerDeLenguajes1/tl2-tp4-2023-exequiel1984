@@ -8,12 +8,14 @@ namespace Practico1;
         private string telefono;
         private List<Cadete> listadoCadetes;
         private List<Pedido> ListadoPedidos;
+        private AccesoADatosPedidos accesoADatosPedidos;
 
         public string Nombre { get => nombre; set => nombre = value; }
         public string Telefono { get => telefono; set => telefono = value; }
         public List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value; }
+    public AccesoADatosPedidos AccesoADatosPedidos { get => accesoADatosPedidos; set => accesoADatosPedidos = value; }
 
-        public Cadeteria(string Nombre, string Telefono)
+    public Cadeteria(string Nombre, string Telefono)
         {
             this.Nombre = Nombre;
             this.Telefono = Telefono;
@@ -33,11 +35,17 @@ namespace Practico1;
             if (cadeteriaSingleton == null)
             {
                 cadeteriaSingleton = new Cadeteria();
-                AccesoADatos CargarDatosCSV = new AccesoCSV();
+                AccesoADatosCadeteria CargarDatosCSV = new AccesoCSV();
                 cadeteriaSingleton = CargarDatosCSV.CargarDatosCadeteria();
+
+
                 cadeteriaSingleton.ListadoCadetes = CargarDatosCSV.CargarDatosCadete();
+
+
+
                 AccesoADatosPedidos NuevoAcceso = new AccesoADatosPedidos();
-                ListadoPedidos = NuevoAcceso.Obtener();
+                cadeteriaSingleton.AccesoADatosPedidos = new AccesoADatosPedidos();
+                cadeteriaSingleton.ListadoPedidos = NuevoAcceso.Obtener();
             }
             return cadeteriaSingleton;
         }
@@ -59,6 +67,7 @@ namespace Practico1;
         public Pedido AddPedido(Pedido pedido){
             ListadoPedidos.Add(pedido);
             pedido.Nro = ListadoPedidos.Count;
+            Acceso
             return pedido;
         }
 
