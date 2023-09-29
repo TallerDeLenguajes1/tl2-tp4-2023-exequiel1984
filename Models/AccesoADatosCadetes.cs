@@ -1,28 +1,26 @@
+using System.Text.Json;
+
 namespace Practico1
 {
     public class AccesoADatosCadetes
     {
-        public abstract class AccesoADatos
-        {
-            public abstract List<Cadete> CargarDatosCadete();
+        public AccesoADatosCadetes(){
+            
         }
-
-        public class AccesoCSV : AccesoADatos
-    {
-        public override List<Cadete> CargarDatosCadete()
-        {
-            List<Cadete> ListadoCadetes = new List<Cadete>();
-            string ArchivoCSV = "DatosCadetes.csv";
-            var LeerArchivoCSV = File.ReadAllLines(ArchivoCSV);
-
-            for (int i = 0; i < LeerArchivoCSV.Length; i++)
+        
+        public List<Cadete> Obtener(){
+            List<Cadete> ListaDeserealizada;
+            string StringADeserealizar;
+            using (var ArchivoOpen = new FileStream("DatosCadetes.json", FileMode.Open))
             {
-                var LineaCSV = (LeerArchivoCSV[i].Split(","));
-                Cadete NuevoCadete = new Cadete(LineaCSV);
-                ListadoCadetes.Add(NuevoCadete);
+                using (var strReader = new StreamReader(ArchivoOpen))
+                {
+                    StringADeserealizar = strReader.ReadToEnd();
+                    ArchivoOpen.Close();
+                }
+                ListaDeserealizada = JsonSerializer.Deserialize<List<Cadete>>(StringADeserealizar);
             }
-            return ListadoCadetes;
+            return ListaDeserealizada;
         }
-    }
     }
 }

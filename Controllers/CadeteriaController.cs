@@ -20,9 +20,9 @@ public class CadeteriaController : ControllerBase
 
 
     [HttpGet]
-    public ActionResult<string> GetNombreCadeteria()
+    public ActionResult<Cadeteria> GetCadeteria()
     {
-        return Ok(cadeteria.Nombre);
+        return Ok(cadeteria);
     }
 
     [HttpGet]

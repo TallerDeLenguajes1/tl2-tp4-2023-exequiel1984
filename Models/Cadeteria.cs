@@ -8,12 +8,16 @@ namespace Practico1;
         private string telefono;
         private List<Cadete> listadoCadetes;
         private List<Pedido> ListadoPedidos;
+        private AccesoADatosCadeteria accesoADatosCadeteria;
+        private AccesoADatosCadetes accesoADatosCadetes;
         private AccesoADatosPedidos accesoADatosPedidos;
 
         public string Nombre { get => nombre; set => nombre = value; }
         public string Telefono { get => telefono; set => telefono = value; }
         public List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value; }
-    public AccesoADatosPedidos AccesoADatosPedidos { get => accesoADatosPedidos; set => accesoADatosPedidos = value; }
+        public AccesoADatosPedidos AccesoADatosPedidos { get => accesoADatosPedidos; set => accesoADatosPedidos = value; }
+        public AccesoADatosCadeteria AccesoADatosCadeteria { get => accesoADatosCadeteria; set => accesoADatosCadeteria = value; }
+        public AccesoADatosCadetes AccesoADatosCadetes { get => accesoADatosCadetes; set => accesoADatosCadetes = value; }
 
     public Cadeteria(string Nombre, string Telefono)
         {
@@ -28,36 +32,29 @@ namespace Practico1;
             
         }
 
-        private static Cadeteria cadeteriaSingleton;
+        private static Cadeteria instance;
 
         public static Cadeteria GetCadeteria()
         {
-            if (cadeteriaSingleton == null)
+            if (instance == null)
             {
-                cadeteriaSingleton = new Cadeteria();
-                AccesoADatosCadeteria CargarDatosCSV = new AccesoCSV();
-                cadeteriaSingleton = CargarDatosCSV.CargarDatosCadeteria();
+                instance = new Cadeteria();
+                //instance.AccesoADatosCadeteria = new AccesoADatosCadeteria().Obtener;
+                AccesoADatosCadeteria accesoADatosCadeteria = new AccesoADatosCadeteria();
+                AccesoADatosCadetes accesoADatosCadetes = new AccesoADatosCadetes();
+                instance = accesoADatosCadeteria.Obtener();
+                instance.ListadoCadetes = accesoADatosCadetes.Obtener();
 
 
-                cadeteriaSingleton.ListadoCadetes = CargarDatosCSV.CargarDatosCadete();
 
 
 
-                AccesoADatosPedidos NuevoAcceso = new AccesoADatosPedidos();
-                cadeteriaSingleton.AccesoADatosPedidos = new AccesoADatosPedidos();
-                cadeteriaSingleton.ListadoPedidos = NuevoAcceso.Obtener();
+                //AccesoADatosPedidos AccesoADatosPedidos = new AccesoADatosPedidos();
+                //instance.AccesoADatosPedidos = new AccesoADatosPedidos();
+                //cadeteriaSingleton.ListadoPedidos = AccesoADatosPedidos.Obtener();
             }
-            return cadeteriaSingleton;
+            return instance;
         }
-
-        /* public void CargaDatosIniciales(int i){
-            if (i == 1)
-            {
-                AccesoADatos CargarDatosCSV = new AccesoCSV();
-                cadeteriaSingleton = CargarDatosCSV.CargarDatosCadeteria();
-                cadeteriaSingleton.ListadoCadetes = CargarDatosCSV.CargarDatosCadete();
-            }
-        } */
 
         public List<Cadete> GetCadetes()
         {
@@ -67,7 +64,7 @@ namespace Practico1;
         public Pedido AddPedido(Pedido pedido){
             ListadoPedidos.Add(pedido);
             pedido.Nro = ListadoPedidos.Count;
-            Acceso
+            //Acceso
             return pedido;
         }
 

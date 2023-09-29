@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 namespace Practico1
 {
     public class AccesoADatosCadeteria
@@ -5,12 +7,18 @@ namespace Practico1
         public AccesoADatosCadeteria(){
             
         }
-        public Cadeteria CargarDatosCadeteria(){
-            string ArchivoCSV = "DatosCadeteria.csv";
-            var LeerArchivoCSV = File.ReadAllLines(ArchivoCSV);
-            var LineaCSV = (LeerArchivoCSV[0]).Split(",");
-            
-            Cadeteria NuevaCadeteria = new Cadeteria(LineaCSV[0], LineaCSV[1]);
+        
+        public Cadeteria Obtener()
+        {
+            Cadeteria NuevaCadeteria;
+            string StringADeserealizar;
+            using(var ArchivoOpen = new FileStream("DatosCadeteria.json", FileMode.Open)){
+                using(var strReader = new StreamReader(ArchivoOpen)){
+                    StringADeserealizar = strReader.ReadToEnd();
+                    ArchivoOpen.Close();
+                }
+                NuevaCadeteria = JsonSerializer.Deserialize<Cadeteria>(StringADeserealizar); 
+            }
             return NuevaCadeteria;
         }
     }
