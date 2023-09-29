@@ -6,25 +6,18 @@ namespace Practico1;
     {
         private string nombre;
         private string telefono;
-        private List<Cadete> listadoCadetes;
-        private List<Pedido> ListadoPedidos;
-        private AccesoADatosCadeteria accesoADatosCadeteria;
         private AccesoADatosCadetes accesoADatosCadetes;
         private AccesoADatosPedidos accesoADatosPedidos;
 
         public string Nombre { get => nombre; set => nombre = value; }
         public string Telefono { get => telefono; set => telefono = value; }
-        public List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value; }
         public AccesoADatosPedidos AccesoADatosPedidos { get => accesoADatosPedidos; set => accesoADatosPedidos = value; }
-        public AccesoADatosCadeteria AccesoADatosCadeteria { get => accesoADatosCadeteria; set => accesoADatosCadeteria = value; }
         public AccesoADatosCadetes AccesoADatosCadetes { get => accesoADatosCadetes; set => accesoADatosCadetes = value; }
 
     public Cadeteria(string Nombre, string Telefono)
         {
             this.Nombre = Nombre;
             this.Telefono = Telefono;
-            this.ListadoCadetes = new List<Cadete>();
-            this.ListadoPedidos = new List<Pedido>();
         }
 
         public Cadeteria()
@@ -34,66 +27,66 @@ namespace Practico1;
 
         private static Cadeteria instance;
 
-        public static Cadeteria GetCadeteria()
+        public static Cadeteria GetInstance()
         {
             if (instance == null)
             {
-                instance = new Cadeteria();
-                //instance.AccesoADatosCadeteria = new AccesoADatosCadeteria().Obtener;
                 AccesoADatosCadeteria accesoADatosCadeteria = new AccesoADatosCadeteria();
-                AccesoADatosCadetes accesoADatosCadetes = new AccesoADatosCadetes();
                 instance = accesoADatosCadeteria.Obtener();
-                instance.ListadoCadetes = accesoADatosCadetes.Obtener();
-
-
-
-
-
-                //AccesoADatosPedidos AccesoADatosPedidos = new AccesoADatosPedidos();
-                //instance.AccesoADatosPedidos = new AccesoADatosPedidos();
-                //cadeteriaSingleton.ListadoPedidos = AccesoADatosPedidos.Obtener();
+                
+                instance.AccesoADatosCadetes = new AccesoADatosCadetes();
+                instance.AccesoADatosPedidos = new AccesoADatosPedidos();
             }
             return instance;
         }
 
         public List<Cadete> GetCadetes()
         {
-            return ListadoCadetes;
+            return AccesoADatosCadetes.Obtener();
         }
 
         public Pedido AddPedido(Pedido pedido){
-            ListadoPedidos.Add(pedido);
-            pedido.Nro = ListadoPedidos.Count;
-            //Acceso
+            List<Pedido> listaPedidos = AccesoADatosPedidos.Obtener();
+            listaPedidos.Add(pedido);
+            pedido.Nro = listaPedidos.Count;
+            accesoADatosPedidos.Guardar(listaPedidos);
             return pedido;
         }
 
         public List<Pedido> GetPedidos()
         {
-            return ListadoPedidos;
+            return instance.AccesoADatosPedidos.Obtener();
         }
 
         public Pedido AsignarPedido(int idPedido, int idCadete){
-            Pedido auxPedido = ListadoPedidos.FirstOrDefault(t => t.Nro == idPedido);
+            List<Pedido> listaPedidos = AccesoADatosPedidos.Obtener();
+            Pedido auxPedido = listaPedidos.FirstOrDefault(t => t.Nro == idPedido);
             auxPedido.IdCadete = idCadete;
+            accesoADatosPedidos.Guardar(listaPedidos);
             return auxPedido;
         }
 
         public Pedido CambiarEstadoPedido(int idPedido, Estados nuevoEstado){
-            Pedido auxPedido = ListadoPedidos.FirstOrDefault(t => t.Nro == idPedido);
+            List<Pedido> listaPedidos = AccesoADatosPedidos.Obtener();
+            Pedido auxPedido = listaPedidos.FirstOrDefault(t => t.Nro == idPedido);
             auxPedido.Estado = nuevoEstado;
+            accesoADatosPedidos.Guardar(listaPedidos);
+
             return auxPedido;
         }
         
         public Pedido CambiarCadetePedido(int idPedido, int idNuevoCadete){
-            Pedido auxPedido = ListadoPedidos.FirstOrDefault(t => t.Nro == idPedido);
+            List<Pedido> listaPedidos = AccesoADatosPedidos.Obtener();
+            Pedido auxPedido = listaPedidos.FirstOrDefault(t => t.Nro == idPedido);
             auxPedido.IdCadete = idNuevoCadete;
+            accesoADatosPedidos.Guardar(listaPedidos);
             return auxPedido;
         }
 
         private float JornalACobrar(int IdCadete){
             float montoACobrar = 0;
-            foreach (Pedido Pedido in ListadoPedidos)
+            List<Pedido> listaPedidos = accesoADatosPedidos.Obtener();
+            foreach (Pedido Pedido in listaPedidos)
             {   
                 if (Pedido.IdCadete == IdCadete && Pedido.Estado == Estados.Entregado)
                 {
@@ -104,8 +97,8 @@ namespace Practico1;
         }
         public Informe GetInforme(){
             var informe = new Informe();
-
-            foreach (Cadete cadete in ListadoCadetes)
+            List<Cadete> listaCadetes = accesoADatosCadetes.Obtener();
+            foreach (Cadete cadete in listaCadetes)
             {
                 var informeCad = new InformeCadete();
                /* informe.TotalMontos.Add(JornalACobrar(cadete.Id));

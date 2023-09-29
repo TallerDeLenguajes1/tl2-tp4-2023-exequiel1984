@@ -13,7 +13,7 @@ public class CadeteriaController : ControllerBase
     public CadeteriaController(ILogger<CadeteriaController> logger)
     {
         _logger = logger;
-        cadeteria = Cadeteria.GetCadeteria();
+        cadeteria = Cadeteria.GetInstance();
     }
 
     

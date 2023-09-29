@@ -8,6 +8,11 @@ namespace Practico1
             
         }
 
+        public void Guardar(List<Pedido> listaPedidos){
+            var json = JsonSerializer.Serialize(listaPedidos);
+            File.WriteAllText("Pedidos.json", json);
+        }
+
         /*static void CrearYEscribirArchivoJson(List<producto> Lista, string NombreNuevoArchivoJson)
         {
             string ListaSerealizada = JsonSerializer.Serialize(Lista);//Cargo datos
@@ -22,19 +27,19 @@ namespace Practico1
             }
         }*/
 
-        /* public List<Pedido> Obtener()
-        {
-            List<Pedido> ListadoPedidos = new List<Pedido>();
-            string ArchivoCSV = "DatosPedidos.csv";
-            var LeerArchivoCSV = File.ReadAllLines(ArchivoCSV);
-
-            for (int i = 0; i < LeerArchivoCSV.Length; i++)
+        public List<Pedido> Obtener(){
+            List<Pedido> ListaDeserealizada;
+            string StringADeserealizar;
+            using (var ArchivoOpen = new FileStream("Pedidos.json", FileMode.Open))
             {
-                var LineaCSV = (LeerArchivoCSV[i].Split(","));
-                Pedido NuevoPedido = new Pedido(LineaCSV);
-                ListadoPedidos.Add(NuevoPedido);
+                using (var strReader = new StreamReader(ArchivoOpen))
+                {
+                    StringADeserealizar = strReader.ReadToEnd();
+                    ArchivoOpen.Close();
+                }
+                ListaDeserealizada = JsonSerializer.Deserialize<List<Pedido>>(StringADeserealizar);
             }
-            return ListadoPedidos;
-        } */
+            return ListaDeserealizada;
+        }
     }
 }
