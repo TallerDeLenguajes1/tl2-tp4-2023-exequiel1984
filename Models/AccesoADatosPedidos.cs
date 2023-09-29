@@ -27,7 +27,7 @@ namespace Practico1
             }
         }*/
 
-        public List<Pedido> Obtener(){
+        /* public List<Pedido> Obtener(){
             List<Pedido> ListaDeserealizada;
             string StringADeserealizar;
             using (var ArchivoOpen = new FileStream("Pedidos.json", FileMode.Open))
@@ -40,6 +40,16 @@ namespace Practico1
                 ListaDeserealizada = JsonSerializer.Deserialize<List<Pedido>>(StringADeserealizar);
             }
             return ListaDeserealizada;
+        } */
+
+        public List<Pedido> Obtener() {
+            var path = "Pedidos.json";
+            if (File.Exists(path)) {
+                string json = File.ReadAllText(path);
+                var pedidos = JsonSerializer.Deserialize<List<Pedido>>(json);
+                return pedidos;
+            }
+            return null;
         }
     }
 }
