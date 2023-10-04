@@ -45,6 +45,21 @@ namespace Practico1;
             return AccesoADatosCadetes.Obtener();
         }
 
+        public Cadete GetCadete(int idCadete)
+        {
+            List<Cadete> listaCadetes = AccesoADatosCadetes.Obtener();
+            Cadete auxCadete = listaCadetes.FirstOrDefault(t => t.Id == idCadete);
+            return auxCadete;
+        }
+
+        public Cadete AddCadete(Cadete cadete){
+            List<Cadete> listaCadetes = AccesoADatosCadetes.Obtener();
+            listaCadetes.Add(cadete);
+            cadete.Id = listaCadetes.Count;
+            accesoADatosCadetes.Guardar(listaCadetes);
+            return cadete;
+        }
+
         public Pedido AddPedido(Pedido pedido){
             List<Pedido> listaPedidos = AccesoADatosPedidos.Obtener();
             listaPedidos.Add(pedido);
@@ -56,6 +71,13 @@ namespace Practico1;
         public List<Pedido> GetPedidos()
         {
             return instance.AccesoADatosPedidos.Obtener();
+        }
+
+        public Pedido GetPedido(int idPedido)
+        {
+            List<Pedido> listaPedidos = AccesoADatosPedidos.Obtener();
+            Pedido auxPedido = listaPedidos.FirstOrDefault(t => t.Nro == idPedido);
+            return auxPedido;
         }
 
         public Pedido AsignarPedido(int idPedido, int idCadete){

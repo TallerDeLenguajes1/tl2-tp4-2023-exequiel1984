@@ -1,2 +1,1 @@
-[{"Id": 1, "Nombre": "Exequiel", "Direccion": "Cualquiera", "Telefono": "3816444666"},
-{"Id": 2, "Nombre": "Hector", "Direccion": "Lavalle", "Telefono": "3816445666"}]
+[{"Id":1,"Nombre":"Exequiel","Direccion":"Cualquiera","Telefono":"3816444666"},{"Id":2,"Nombre":"Hector","Direccion":"Lavalle","Telefono":"3816445666"},{"Id":3,"Nombre":"Raul","Direccion":"Laprida","Telefono":"3815777333"}]

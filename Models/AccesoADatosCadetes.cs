@@ -22,5 +22,10 @@ namespace Practico1
             }
             return ListaDeserealizada;
         }
+
+        public void Guardar(List<Cadete> listaCadetes){
+            var json = JsonSerializer.Serialize(listaCadetes);
+            File.WriteAllText("DatosCadetes.json", json);
+        }
     }
 }

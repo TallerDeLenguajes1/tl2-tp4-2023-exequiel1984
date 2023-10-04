@@ -69,3 +69,4 @@ D:\tl2-2023\tl2-tp4-2023-exequiel1984\bin\Debug\net7.0\DatosCadetes.json
 C:\Users\Alumno\Desktop\exequiel\tl2-tp4-2023-exequiel1984\bin\Debug\net7.0\DatosCadeteria.json
 C:\Users\Alumno\Desktop\exequiel\tl2-tp4-2023-exequiel1984\bin\Debug\net7.0\DatosCadetes.json
 C:\Users\Alumno\Desktop\exequiel\tl2-tp4-2023-exequiel1984\bin\Debug\net7.0\Models\Pedidos.json
+D:\tl2-2023\tl2-tp4-2023-exequiel1984\bin\Debug\net7.0\Pedidos.json
